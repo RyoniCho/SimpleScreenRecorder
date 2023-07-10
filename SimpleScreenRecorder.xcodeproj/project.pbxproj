@@ -11,6 +11,8 @@
 		2189390D2A563A37004D7463 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189390C2A563A37004D7463 /* ContentView.swift */; };
 		2189390F2A563A38004D7463 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2189390E2A563A38004D7463 /* Assets.xcassets */; };
 		218939132A563A38004D7463 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 218939122A563A38004D7463 /* Preview Assets.xcassets */; };
+		2189391A2A563A67004D7463 /* ScreenRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218939192A563A67004D7463 /* ScreenRecord.swift */; };
+		2189391D2A565204004D7463 /* ScreenRecord2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189391C2A565204004D7463 /* ScreenRecord2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,9 @@
 		2189390E2A563A38004D7463 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		218939102A563A38004D7463 /* SimpleScreenRecorder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleScreenRecorder.entitlements; sourceTree = "<group>"; };
 		218939122A563A38004D7463 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		218939192A563A67004D7463 /* ScreenRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenRecord.swift; sourceTree = "<group>"; };
+		2189391B2A564160004D7463 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2189391C2A565204004D7463 /* ScreenRecord2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenRecord2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,11 +57,14 @@
 		218939092A563A37004D7463 /* SimpleScreenRecorder */ = {
 			isa = PBXGroup;
 			children = (
+				2189391B2A564160004D7463 /* Info.plist */,
 				2189390A2A563A37004D7463 /* SimpleScreenRecorderApp.swift */,
 				2189390C2A563A37004D7463 /* ContentView.swift */,
 				2189390E2A563A38004D7463 /* Assets.xcassets */,
 				218939102A563A38004D7463 /* SimpleScreenRecorder.entitlements */,
 				218939112A563A38004D7463 /* Preview Content */,
+				218939192A563A67004D7463 /* ScreenRecord.swift */,
+				2189391C2A565204004D7463 /* ScreenRecord2.swift */,
 			);
 			path = SimpleScreenRecorder;
 			sourceTree = "<group>";
@@ -140,7 +148,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2189390D2A563A37004D7463 /* ContentView.swift in Sources */,
+				2189391A2A563A67004D7463 /* ScreenRecord.swift in Sources */,
 				2189390B2A563A37004D7463 /* SimpleScreenRecorderApp.swift in Sources */,
+				2189391D2A565204004D7463 /* ScreenRecord2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +277,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"SimpleScreenRecorder/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SimpleScreenRecorder/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Use microphone for record";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -276,7 +288,6 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -303,6 +314,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"SimpleScreenRecorder/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SimpleScreenRecorder/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Use microphone for record";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -312,7 +325,6 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
