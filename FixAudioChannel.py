@@ -13,7 +13,7 @@ class FixAudioChannel():
         self.SetArgs()
         self.IsDirMode=False
         self.targetPath=''
-        self.resizeMode=False
+      
 
         self.SetArgs()
 
@@ -47,23 +47,44 @@ class FixAudioChannel():
         mergeCommand=f'ffmpeg -i "{videoFileName}" -i "{audioFilePath}" -c copy "{outputPath}"'
         print(f"MERGE Video and Audio : {mergeCommand}")
         res = subprocess.run(mergeCommand,shell=True,capture_output=True)
+
+        return outputPath
       
         #print(res.stdout.decode('utf-8'))
+
+    def EncodeVideoToHEVCFile(self,videoFilePath):
+
+        encodeOutputPath=os.path.join(os.path.dirname(videoFilePath),"EncodedOutput")
+        if not os.path.exists(encodeOutputPath):
+            print(f"not exist: {encodeOutputPath} create directory")
+            os.makedirs(encodeOutputPath)
+            
+        
+        outPutFilePath=os.path.join(encodeOutputPath,os.path.basename(videoFilePath).replace("_modified","_encoded"))
+
+        EncodeCommand= f'avconvert --source "{videoFilePath}" --preset PresetHEVC1920x1080 --output "{outPutFilePath}"'
+        print(f"Encode Video.. : {EncodeCommand}")
+        res = subprocess.run(EncodeCommand,shell=True,capture_output=True)
+        print(res.stdout.decode('utf-8'))
+
+        return outPutFilePath
+
+        
     
     def ResizeFileToMp4(self,videoFileName):
-        outputPath=os.path.join(os.path.dirname(videoFileName),"Output")
+        outputPath=os.path.join(os.path.dirname(videoFileName),"ResizeOutput")
         print(outputPath)
         if not os.path.exists(outputPath):
             print(f"not exist:{outputPath}")
             os.makedirs(outputPath)
         
         fileName=os.path.basename(videoFileName)
-        outputPath=os.path.join(outputPath,fileName.replace(".mov","_modified.mp4"))
+        outputPath=os.path.join(outputPath,fileName)
 
       
 
         resizeCommand=f'ffmpeg -i "{videoFileName}" -q:v 0 "{outputPath}"'
-        print(f"Resize Mov VideoFile to Mp4 : {resizeCommand}")
+        print(f"Resize VideoFile : {resizeCommand}")
         res = subprocess.run(resizeCommand,shell=True,capture_output=True)
       
         #print(res.stdout.decode('utf-8'))
@@ -75,7 +96,7 @@ class FixAudioChannel():
             if os.path.isdir(self.targetPath):
                 fileList=list()
                 fileList=glob.glob(os.path.join(self.targetPath,"*.mov"))
-                fileList.append(glob.glob(os.path.join(self.targetPath,"*.mp4")))
+                fileList.extend(glob.glob(os.path.join(self.targetPath,"*.mp4")))
                 if len(fileList) == 0:
                     print(f"There is no Mp4 or Mov files in {self.targetPath}")
                     sys.exit(-1)
@@ -83,11 +104,14 @@ class FixAudioChannel():
                     print(f"{len(fileList)} files Detected. Process Start.")
                     for f in fileList:
                         print(f"File: {f}")
-                        if self.resizeMode==False:
-                            self.DetachAudioFromVideoFile(f)
-                            self.MergeVideoAndAudioFile(f)
-                        else:
-                            self.ResizeFileToMp4(f)
+                        
+                        self.DetachAudioFromVideoFile(f)
+                        output=self.MergeVideoAndAudioFile(f)
+                        output=self.EncodeVideoToHEVCFile(output)
+                        self.ResizeFileToMp4(output)
+
+                        
+                            
                     print("Finished")
             else:
                 print(f"Error: {self.targetPath} is not Directory!! ")
@@ -97,11 +121,13 @@ class FixAudioChannel():
            
         else:
             print(f"File: {self.targetPath}")
-            if self.resizeMode==False:
-                self.DetachAudioFromVideoFile(self.targetPath)
-                self.MergeVideoAndAudioFile(self.targetPath)
-            else:
-                self.ResizeFileToMp4(self.targetPath)
+         
+            self.DetachAudioFromVideoFile(self.targetPath)
+            output=self.MergeVideoAndAudioFile(self.targetPath)
+            output=self.EncodeVideoToHEVCFile(output)
+            self.ResizeFileToMp4(output)
+           
+                
             print("Finished")
 
 
@@ -112,9 +138,7 @@ class FixAudioChannel():
                         help='Target Directory Path including Video Files')
         parser.add_argument('-f','--f',type=str, 
                         help='Target File Path')
-        parser.add_argument('-r','--r', type=str,
-                        help='Resize File')
-
+        
         args = parser.parse_args()
 
         if(args.d is not None and args.f is not None):
@@ -125,8 +149,7 @@ class FixAudioChannel():
             parser.print_help()
             sys.exit(-1)
         else:
-            if(args.r is not None):
-                self.resizeMode=True
+          
             if(args.d is not None):
                 self.IsDirMode=True
                 self.targetPath=args.d
